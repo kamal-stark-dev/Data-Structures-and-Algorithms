@@ -5,6 +5,7 @@ A dynamic array implementation in C++.
 */
 
 #include <iostream>
+#include <utility> // for swap (not actually needed to add here though)
 using namespace std;
 
 class DynamicArray {
@@ -141,6 +142,10 @@ public:
     }
 
     void print() {
+        if (size == 0) {
+            cout << "[]\n";
+            return;
+        }
         cout << "[";
         for (int i = 0; i < size; i++)
             cout << array[i] << ", ";
