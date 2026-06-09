@@ -112,9 +112,9 @@ class DynamicArray:
 
 arr = DynamicArray(1)
 
+arr.add(3.14)
 arr.add(10)
-arr.add(20)
-arr.add(30)
+arr.add("Jake")
 
 print(arr)             # [10, 20, 30]
 print(repr(arr))
