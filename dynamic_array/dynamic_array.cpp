@@ -6,13 +6,15 @@ A dynamic array implementation in C++.
 
 #include <iostream>
 #include <utility> // for swap (not actually needed to add here though)
+#include <stdexcept> // for out_of_range and invalid_argument errors
 using namespace std;
 
+template <typename T>
 class DynamicArray {
 private:
     int size;
     int capacity;
-    int* array;
+    T* array;
 
     void check_index(int index) const {
         if (index < 0 || index >= size)
@@ -20,7 +22,7 @@ private:
     }
 
     void resize(int new_capacity) {
-        int* new_array = new int[new_capacity];
+        T* new_array = new T[new_capacity];
 
         for (int i = 0; i < size; i++)
             new_array[i] = array[i];
@@ -37,7 +39,7 @@ public:
 
         size = 0;
         capacity = _capacity;
-        array = new int[capacity]; // memory allocated on the heap at run-time
+        array = new T[capacity]; // memory allocated on the heap at run-time
     }
 
     // disabling copy constructor (can't do `DynamicArray arr2 = arr1;`)
@@ -47,11 +49,8 @@ public:
     // DynamicArray& operator=(const DynamicArray&) = delete;
 
     // copy constructor
-    DynamicArray(const DynamicArray& other) {
-        size = other.size;
-        capacity = other.capacity;
-
-        array = new int[capacity];
+    DynamicArray(const DynamicArray& other) : size(other.size), capacity(other.capacity) {
+        array = new T[capacity];
 
         for (int i = 0; i < size; i++)
             array[i] = other.array[i];
@@ -101,38 +100,36 @@ public:
         return size == 0;
     }
 
-    int get(int index) const {
+    const T& get(int index) const {
         check_index(index);
         return array[index];
     }
 
-    void set(int index, int value) {
+    void set(int index, T value) {
         check_index(index);
         array[index] = value;
     }
 
-    void add(int value) {
+    void add(T value) {
         if (size == capacity)
             resize(capacity * 2);
 
-        array[size] = value;
-        size++;
+        array[size++] = value;
     }
 
-    int removeAt(int index) {
+    T removeAt(int index) {
         check_index(index);
 
-        int removed_value = array[index];
+        T removed_value = array[index];
 
         for (int i = index; i < size - 1; i++)
             array[i] = array[i + 1];
 
-        array[size - 1] = -1;
         size--;
 
         // optionlly shrink (prevent wastage of space)
-        if (capacity > 1 && size <= (capacity / 4))
-            resize(capacity / 2);
+        if (size <= (capacity / 4))
+            resize(max(1, capacity / 2));
 
         return removed_value;
     }
@@ -141,7 +138,7 @@ public:
         size = 0;
     }
 
-    void print() {
+    void print() const {
         if (size == 0) {
             cout << "[]\n";
             return;
@@ -159,8 +156,23 @@ public:
     }
 };
 
+class Anime {
+public:
+    string name;
+    double rating;
+
+    Anime() : name(""), rating(0.0) {}
+    Anime(string s, double r) : name(s), rating(r) {}
+};
+
+// operator overloading << to print Anime object
+ostream& operator<<(ostream& os, const Anime& anime) {
+    os << anime.name << " (" << anime.rating << ")";
+    return os;
+}
+
 int main() {
-    DynamicArray arr(1);
+    DynamicArray<int> arr(1);
 
     arr.add(10);
     arr.add(20);
@@ -180,16 +192,35 @@ int main() {
     arr.print();
 
     // The Rule of Three (check)
-    DynamicArray arr2 = arr;
+    DynamicArray<int> arr2 = arr;
 
     arr2.set(0, 67);
     cout << "Array 1: ";
     arr.print();
 
     cout << "Array 2: ";
-    arr2.print();
+    arr2.print(); // both arrays will be different as we have created a deep copy
 
-    // both arrays will be different as we have created a deep copy
+    // Character Array
+    DynamicArray<char> char_arr(1);
+
+    char_arr.add('a');
+    cout << (char)char_arr.get(0) << "\n";
+
+    char_arr.set(0, '$');
+    cout << (char)char_arr.get(0) << "\n";
+
+    // Object Array
+    DynamicArray<Anime> anime_arr(3);
+    anime_arr.add(Anime("Naruto", 9.7));
+    anime_arr.add(Anime("One Piece", 9.7));
+    anime_arr.add(Anime("Haikyuu", 9.0));
+    anime_arr.add(Anime("One Punch Man", 8.2));
+    anime_arr.add(Anime("Death Note", 9.3));
+
+    cout << anime_arr.get(0) << "\n";
+
+    anime_arr.print();
 
     return 0;
 }
