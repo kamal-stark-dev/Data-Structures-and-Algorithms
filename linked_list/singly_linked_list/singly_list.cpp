@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept> // exception: out_of_range
 
 template <typename T=int>
 class Node {
@@ -153,6 +154,20 @@ public:
     }
 };
 
+class Coords {
+public:
+    int x;
+    int y;
+
+    Coords() : x(0), y(0) {}
+    Coords(int x_val, int y_val) : x(x_val), y(y_val) {}
+};
+
+std::ostream& operator<<(std::ostream& os, const Coords& coords) {
+    os << "(" << coords.x << ", " << coords.y << ")";
+    return os;
+}
+
 int main() {
     SinglyList<int> ll;
     ll.add(10);
@@ -172,6 +187,19 @@ int main() {
     ll.print();
 
     ll.print();
+
+    SinglyList<std::string> ll_string;
+    ll_string.add("Hello World");
+    ll_string.add("Linked Lists are COOL");
+    ll_string.add("Bye World");
+
+    ll_string.print();
+
+    SinglyList<Coords> ll_coords;
+    ll_coords.add(Coords());
+    ll_coords.add(Coords(10, 10));
+
+    ll_coords.print();
 
     return 0;
 }
