@@ -103,6 +103,8 @@ if __name__ == "__main__":
         ("bat", "tab", True),
         ("anagram", "nagaram", True),
         ("racecar", "basecar", False),
+        ("k", "k", True),
+        ("abc", "aaaaaaaaaaabbbbbbbbbbbbbcccccccccccc", False),
     ]
 
     for s, t, expected_output in test_cases:
@@ -115,6 +117,6 @@ if __name__ == "__main__":
             f"Expected: {expected_output}, Got: {result}\n"
         )
 
-    print("All test cases passed!!")
+    print("#######################\nAll test cases passed!!\n#######################")
 
 
