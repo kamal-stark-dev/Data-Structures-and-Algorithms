@@ -2,10 +2,21 @@ from collections import defaultdict
 
 class Solution:
     """
+    Given an array of `strs`, group the anagrams together and return that.
+
+    Input: list[str]
+    Output: list[list[str]]
+
+    Constraints:
+        1 <= strs.length <= 10^4
+        0 <= strs[i].length <= 100
+        strs[i] consists of lowercase English letters
     """
 
     def group_anagrams_sorting(self, strs: list[str]) -> list[list[str]]:
         """
+        Given an array of `strs`, group the anagrams together by sorting each string and using that as a key to append that string to the map and return the values.
+
         Time: O(m * n logn)
         Space: O(m * n)
 
@@ -24,6 +35,8 @@ class Solution:
 
     def group_anagrams_hash_set(self, strs: list[str]) -> list[list[str]]:
         """
+        Given an array of `strs`, group the anagrams together by creating a count array (of size 26 as only lowercase English letters are there) and use the tuple(count) as the key to build a map.
+
         Time: O(m * n)
         Space: O(m) auxilary space excluding the output, O(m * n) total space
 
