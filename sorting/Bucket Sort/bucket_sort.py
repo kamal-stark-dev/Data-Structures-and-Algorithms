@@ -1,3 +1,4 @@
+import math
 from typing import TypeVar
 
 T= TypeVar("T", int, float) # this is done io use `T` in decorators as the function can sort any numberic data type
@@ -45,7 +46,7 @@ def bucket_sort(nums: list[T]) -> list[T]:
     return result
 
 
-def bucket_sort_visulize(nums: list[T]) -> list[T]:
+def bucket_sort_visualize(nums: list[T]) -> list[T]:
     """
     Bucket sort implementation + visualization of all the steps in console.
     """
@@ -59,7 +60,7 @@ def bucket_sort_visulize(nums: list[T]) -> list[T]:
     if min_value == max_value:
         return nums
 
-    bucket_count = len(nums)
+    bucket_count = int(math.sqrt(len(nums)))
     buckets: list[list[T]] = [[] for _ in range(bucket_count)]
     bucket_range = (max_value - min_value) / bucket_count
 
@@ -103,6 +104,5 @@ if __name__ == "__main__":
     print('Sorted floats:', bucket_sort(floats))
 
     # Standard unsorted numbers
-    # test_nums = [42, 10, 33, 52, 21]
-    test_nums = [10, 11, 14, 20, 43]
-    bucket_sort_visulize(test_nums)
+    test_nums = [42, 10, 33, 52, 21]
+    bucket_sort_visualize(test_nums)
