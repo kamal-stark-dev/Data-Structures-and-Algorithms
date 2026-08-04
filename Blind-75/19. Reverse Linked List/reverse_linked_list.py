@@ -13,7 +13,7 @@ class ListNode:
         self.next = next
 
 
-def build_linked_list(nums: list[int]=[]) -> ListNode:
+def build_linked_list(nums: Optional[list[int]] = None) -> ListNode:
     """
     Builds a singly linked list from a list of integers.
 
@@ -23,8 +23,8 @@ def build_linked_list(nums: list[int]=[]) -> ListNode:
     Returns:
         The head of the constructed linked list.
     """
-    if not nums:
-        return None
+    if nums is None:
+        return []
 
     dummy = ListNode()
     curr = dummy
@@ -33,20 +33,6 @@ def build_linked_list(nums: list[int]=[]) -> ListNode:
         curr = curr.next
 
     return dummy.next
-
-
-def print_list(head: ListNode) -> None:
-    """
-    Prints the linked list in a readable format.
-
-    Example:
-        1->2->3->NULL
-    """
-    curr = head
-    while curr:
-        print(curr.val, end="->")
-        curr = curr.next
-    print("NULL")
 
 
 def get_list_back(head: ListNode) -> list[int]:
