@@ -77,6 +77,26 @@ class TestDoublyLinkedList(unittest.TestCase):
             loop_elements.append(val)
         self.assertEqual(loop_elements, items)
 
+    def test_insert_at_index(self):
+        self.dll.addLast(10) # [10]
+        self.dll.addLast(30) # [10, 30]
+
+        # Test inserting in the middle
+        self.dll.insertAt(1, 20) # [10, 20, 30]
+        self.assertEqual(list(self.dll), [10, 20, 30])
+
+        # Test inserting at 0-th index
+        self.dll.insertAt(0, 0) # [0, 10, 20, 30]
+        self.assertEqual(self.dll.peekFirst(), 0)
+
+        # Test inserting at the absolute end (idx == size)
+        self.dll.insertAt(4, 40) # [0, 10, 20, 30, 40]
+        self.assertEqual(self.dll.peekLast(), 40)
+
+        # Test out of bounds
+        with self.assertRaises(IndexError):
+            self.dll.insertAt(10, 99)
+
     def test_clear(self):
         self.dll.addLast(1)
         self.dll.addLast(2)

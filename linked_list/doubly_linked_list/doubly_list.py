@@ -102,9 +102,9 @@ class DoublyLinkedList:
         node.next.prev = node.prev
 
         data = node.val
+
         node.val = 0
         node.prev = node.next = None
-        node = None
 
         self._size -= 1
         return data
@@ -140,6 +140,36 @@ class DoublyLinkedList:
                 i -= 1
 
         return self._remove(curr)
+
+    def insertAt(self, idx, val):
+        if idx < 0 or idx > self._size:
+            raise IndexError("Invalid range provided!!")
+
+        if idx == 0:
+            self.addFirst(val)
+            return
+        if idx == self._size:
+            self.addLast(val)
+            return
+
+        if idx < (self._size // 2):
+            curr = self.head
+            i = 0
+            while i != idx - 1:
+                curr = curr.next
+                i += 1
+        else:
+            curr = self.tail
+            i = self._size - 1
+            while i != idx - 1:
+                curr = curr.prev
+                i -= 1
+
+        node = ListNode(val, prev=curr, next=curr.next)
+        curr.next.prev = node
+        curr.next = node
+
+        self._size += 1
 
     def indexOf(self, val):
         curr = self.head
