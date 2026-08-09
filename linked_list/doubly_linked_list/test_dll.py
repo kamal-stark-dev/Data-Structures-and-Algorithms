@@ -97,6 +97,24 @@ class TestDoublyLinkedList(unittest.TestCase):
         with self.assertRaises(IndexError):
             self.dll.insertAt(10, 99)
 
+    def test_reverse_list(self):
+        # Case 1: Empty list should not crash
+        self.dll.reverseList()
+        self.assertTrue(self.dll.isEmpty())
+
+        # Case 2: Multi-element list
+        self.dll.addLast(10)
+        self.dll.addLast(20)
+        self.dll.addLast(30)
+
+        self.dll.reverseList()
+
+        # Verify structure forward
+        self.assertEqual(list(self.dll), [30, 20, 10])
+        # Verify head and tail references updated correctly
+        self.assertEqual(self.dll.peekFirst(), 30)
+        self.assertEqual(self.dll.peekLast(), 10)
+
     def test_clear(self):
         self.dll.addLast(1)
         self.dll.addLast(2)

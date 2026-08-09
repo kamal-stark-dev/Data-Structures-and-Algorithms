@@ -198,6 +198,20 @@ class DoublyLinkedList:
             curr = curr.next
         print("NULL")
 
+    def reverseList(self):
+        if self._size <= 1:
+            return
+
+        prv, curr = None, self.head
+
+        while curr:
+            nxt = curr.next
+            curr.next = prv
+            curr.prev = nxt
+            prv = curr
+            curr = nxt
+
+        self.tail, self.head = self.head, prv
 
 if __name__ == "__main__":
     dll = DoublyLinkedList()
