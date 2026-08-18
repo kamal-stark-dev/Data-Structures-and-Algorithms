@@ -165,6 +165,8 @@ class Solution:
 
         for num in range(1, n + 1):
             dp[num] = dp[num >> 1] + (num & 1)
+            # you can also write it as this if it makes more sense
+            # dp[num] = dp[num // 2] + (num % 2)
 
         return dp
 
