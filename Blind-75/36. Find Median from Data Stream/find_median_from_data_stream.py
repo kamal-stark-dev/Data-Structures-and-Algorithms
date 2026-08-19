@@ -188,7 +188,21 @@ if __name__ == "__main__":
 
     test_cases = [
         # (calls: list[str], inputs: list[list[int]], expected: list[float | None])
-        (["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"], [[], [1], [2], [], [3], []], [None, None, None, 1.5, None, 2.0]),
+        (
+            ["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"],
+            [[], [1], [2], [], [3], []],
+            [None, None, None, 1.5, None, 2.0]
+        ),
+        (
+            ["MedianFinder", "addNum", "addNum", "addNum", "addNum", "findMedian"],
+            [[], [1], [2], [3], [4], []],
+            [None, None, None, None, None, 2.5],
+        ),
+        (
+            ["MedianFinder", "addNum", "addNum", "findMedian"],
+            [[], [250], [0], []],
+            [None, None, None, 125.0],
+        ),
     ]
 
     for calls, inputs, expected in test_cases:
