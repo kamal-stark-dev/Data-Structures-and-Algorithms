@@ -223,7 +223,7 @@ if __name__ == "__main__":
     dll.printList() # NULL <-> 2 <-> 1 <-> 3 <-> NULL
     print("Size:", dll.size()) # 3
 
-    print("Index of 1:", dll.indexOf(1)) # 0
+    print("Index of 1:", dll.indexOf(1)) # 1
 
     dll.removeLast() # [2, 1]
     dll.printList()
@@ -235,4 +235,4 @@ if __name__ == "__main__":
 
     dll.remove(1) # []
     dll.printList()
-    print("Size:", dll.size()) # 3
+    print("Size:", dll.size()) # 0
