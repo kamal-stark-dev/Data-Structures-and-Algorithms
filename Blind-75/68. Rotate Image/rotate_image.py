@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 class Solution:
     """
     Problem:
@@ -201,18 +203,20 @@ if __name__ == "__main__":
     ]
 
     for matrix, expected in test_cases:
+        original_matrix = deepcopy(matrix)
+
         # matrix gets updated inplace
         solution.rotate_image_reverse_and_transpose(matrix)
 
         assert matrix == expected, (
             f"\n\nTest case failed!\n"
-            f"matrix = {matrix}\n"
+            f"matrix = {original_matrix}\n"
             f"expected = {expected}\n"
             f"got = {matrix}\n"
         )
 
         print(
-            f"matrix = {matrix}\n"
+            f"matrix = {original_matrix}\n"
             f"expected = {expected}\n"
             f"got = {matrix}\n"
         )
